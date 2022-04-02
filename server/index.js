@@ -24,6 +24,14 @@ app.post("/register", (req, res) => {
     });
 });
 
+app.get("/getCards", (req, res) => {
+    let SQL = "SELECT * from produtos";
+    db.query(SQL, (err, result) => {
+        if(err) console.log(err);
+        else res.send(result);
+    })
+})
+
 app.listen(3001, () => {
     console.log("Server ON");
 });
