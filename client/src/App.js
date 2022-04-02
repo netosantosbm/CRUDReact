@@ -18,6 +18,8 @@ function App() {
       name: values.name,
       cost: values.cost,
       category: values.category,
+    }).then((response) => {
+      console.log(response)
     });
   }
 
