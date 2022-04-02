@@ -5,6 +5,7 @@ import Card from './components/cards/card';
 
 function App() {
   const [values, setValues] = useState();
+  const [listProducts, setListProducts] = useState();
 
   const handleChangeValues = (value) => {
     setValues(prevValue => ({
@@ -25,14 +26,14 @@ function App() {
 
   useEffect(() => {
     Axios.get("http://localhost:3001/getCards").then((response) => {
-      console.log(response);
+      setListProducts(response.data);
     })
   }, []);
 
   return (
     <div className="app-container">
       <div className="register-container">
-        <h1 className="register-title">Scrim Shop</h1>
+        <h1 className="register-title">Cad. Produtos</h1>
 
         <input
           type="text"
@@ -60,7 +61,17 @@ function App() {
           Cadastrar
         </button>
       </div>
-      <Card></Card>
+      {typeof listProducts !== "undefined" && listProducts.map((value) => {
+        return <Card key={value.id}
+          listCard={listProducts}
+          setListCard={setListProducts}
+          id={value.id}
+          name={value.name}
+          cost={value.cost}
+          category={value.category}
+        ></Card>;
+      })}
+
     </div>
   );
 }
